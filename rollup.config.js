@@ -1,7 +1,7 @@
-import path from "path";
-
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
+import alias from "@rollup/plugin-alias";
+
 import svelte from "rollup-plugin-svelte";
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
@@ -63,14 +63,7 @@ export default {
     commonjs(),
 
     alias({
-      entries: [
-        {
-          find: `~`,
-          replacement: path.resolve(__dirname, "src/"), // 경로를 병합해주는 역할
-          // ~를 발견하면 __dirname + src/ 로 바꿔준다.
-          // __dirname : 현재 파일을 기준으로
-        },
-      ],
+      entries: [{ find: "~", replacement: path.resolve(__dirname, "src/") }],
     }),
 
     // In dev mode, call `npm run start` once
