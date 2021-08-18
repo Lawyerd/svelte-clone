@@ -1,3 +1,5 @@
+import path from "path";
+
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import svelte from "rollup-plugin-svelte";
@@ -5,6 +7,7 @@ import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 import css from "rollup-plugin-css-only";
 import { sveltePreprocess } from "svelte-preprocess/dist/autoProcess";
+import path from "path";
 const production = !process.env.ROLLUP_WATCH;
 
 function serve() {
@@ -58,6 +61,17 @@ export default {
       dedupe: ["svelte"],
     }),
     commonjs(),
+
+    alias({
+      entries: [
+        {
+          find: `~`,
+          replacement: path.resolve(__dirname, "src/"), // 경로를 병합해주는 역할
+          // ~를 발견하면 __dirname + src/ 로 바꿔준다.
+          // __dirname : 현재 파일을 기준으로
+        },
+      ],
+    }),
 
     // In dev mode, call `npm run start` once
     // the bundle has been generated
