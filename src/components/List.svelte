@@ -3,19 +3,17 @@
   import CreateCard from "~/components/CreateCard.svelte";
   import ListTitle from "~/components/ListTitle.svelte";
 
-  export let title;
-  export let cards;
-  export let id;
+  export let list;
 </script>
 
 <div class="list">
   <div class="list__inner">
     <div class="list__heading">
-      <ListTitle />
-      <p>{cards.length}cards</p>
+      <ListTitle {list} />
+      <p>{list.cards.length}cards</p>
     </div>
     <div class="list__cards">
-      {#each cards as card (card.id)}
+      {#each list.cards as card (card.id)}
         <Card {card} />
       {/each}
       <Card />
