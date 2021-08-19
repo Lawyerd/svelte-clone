@@ -2,17 +2,16 @@
   //   import List from "./List.svelte";
   import List from "~/components/List.svelte";
   import CreateList from "~/components/CreateList.svelte";
+  import { lists } from "~/store/list";
 </script>
 
 <div class="list-container">
   <div class="lists">
-    <!-- <div class="list"></div> -->
-    <List />
-    <List />
-    <List />
+    {#each $lists as { id, title, cards } (id)}
+      <List {title} />
+    {/each}
   </div>
   <CreateList />
-  <!-- <div class="create-list"></div> -->
 </div>
 
 <style lang="scss">

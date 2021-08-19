@@ -1,4 +1,9 @@
-const { writable } = require("svelte/store");
+import { writable } from "svelte/store";
+import cryptoRandomString from "crypto-random-string";
+
+const crypto = () => {
+  return cryptoRandomString({ length: 10 });
+};
 
 const repoLists = JSON.parse(window.localStorage.getItem("lists")) || [];
 // 이렇게 가져오는 데이터는 객체데이터가 아니라 문자 데이터이다.
@@ -24,7 +29,7 @@ export const lists = {
     const { title } = payload;
     _lists.update($lists => {
       $lists.push({
-        id: "",
+        id: crypto(),
         title,
         cards: [],
       });

@@ -5,6 +5,9 @@ import alias from "@rollup/plugin-alias";
 import svelte from "rollup-plugin-svelte";
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
+import replace from "rollup-plugin-replace";
+import globals from "rollup-plugin-node-globals";
+import builtins from "rollup-plugin-node-builtins";
 import css from "rollup-plugin-css-only";
 import { sveltePreprocess } from "svelte-preprocess/dist/autoProcess";
 import path from "path";
@@ -49,18 +52,37 @@ export default {
         dev: !production,
       },
       preprocess: sveltePreprocess({
+        // scss가 있다면, 전역에 걸쳐서 해당 scss 적용
+        // 단 해당 컴포넌트 style에 lang='scss'가 명시되어 있는 경우에만
+        scss: {
+          prependData: '@import "./src/scss/main.scss";',
+        },
         postcss: {
           plugins: [require("autoprefixer")()],
         },
       }),
     }),
     css({ output: "bundle.css" }),
-
+    // 모든 플러그인들의 가장 상위에 표시한다.
+    replace({
+      values: {
+        "crypto.randomBytes": 'require("randombytes")',
+        // 대체하고싶은 대상 : 대체할 할 값
+        // crypto라는 모듈은 사용할 수 있지만,
+        // randomBytes라는 메소드가 없다.
+        // 그래서 그 구멍을 별도의 모듈을 가지고와서 대체한다.
+      },
+    }),
     resolve({
+      // 변화된 코드가 번들이 된다.
       browser: true,
       dedupe: ["svelte"],
     }),
     commonjs(),
+    // ES6 모듈로 변화시킨다.
+    globals(),
+    builtins(), // builtins가 사용되려면 globals가 필요하다.
+    // 왜냐하면 builtins가 사용하는 일부 모듈은 전역 API를 사용하기 때문에
 
     alias({
       entries: [{ find: "~", replacement: path.resolve(__dirname, "src/") }],
