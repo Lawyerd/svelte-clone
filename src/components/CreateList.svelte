@@ -1,6 +1,6 @@
 <script>
   import { tick } from "svelte";
-
+  import { autoFocusout } from "~/actions/autoFocusout";
   import { lists } from "~/store/list";
   // lists.add({
   //   title: "Heropy!",
@@ -37,7 +37,15 @@
 
 <div class="create-list">
   {#if isEditMode}
-    <div class="edit-mode">
+    <div use:autoFocusout={offEditMode} class="edit-mode">
+      <!-- 여기서 use를 사용한다는 것은 svelte actions를 사용한다는 뜻 -->
+      <!-- svelte actions는 사용하는 함수에 node(element)를 전달한다. -->
+      <!-- 또한 '={}'를 통해서 해당 함수에 데이터도 전달할 수 있다. -->
+
+      <!-- 하지만 이렇게되면 문제가 발생한다. -->
+      <!-- editMode를 켤려고 클릭하는 행위가 editMode를 종료하는 함수를 실행시킨다. -->
+      <!-- 따라서 edit-mode라는 elemnt가 화면에 전부 렌더링 된 이후에  -->
+      <!-- autoFocusout이 실행되면 된다. -->
       <textarea
         bind:value={title}
         bind:this={textareaEl}
