@@ -34,6 +34,30 @@
     font-size: 16px;
     margin: 0 4px;
 
+    :global(&.sortable-ghost) {
+      position: relative;
+      opacity: 0.2;
+
+      &::after {
+        // after를 통해 ghost class위에 새로운 무명 클래스를 추가한다.
+        // 무명 클래스는 content는 없고 일단, 스타일만 추가한다.
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+
+        border-radius: 4px;
+      }
+    }
+
+    :global(&.sortable-chosen) {
+      // cursor: move;
+      cursor: move;
+    }
+
     .list__inner {
       display: flex;
       flex-direction: column;
