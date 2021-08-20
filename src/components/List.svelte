@@ -64,7 +64,8 @@
       flex-direction: column;
       max-height: 100%;
       padding: 10px 8px;
-      background-color: #ebecf0;
+      // background-color: #ebecf0;
+      background-color: white;
       border-radius: 4px;
       box-sizing: border-box;
       .list__heading {
@@ -75,10 +76,8 @@
         }
       }
       .list__cards {
-        border: solid 5px lime;
         overflow-y: auto;
         overflow-x: hidden;
-        box-sizing: border-box;
         margin-bottom: 10px;
       }
     }
