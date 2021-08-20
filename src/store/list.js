@@ -78,3 +78,24 @@ export const lists = {
     });
   },
 };
+
+export const cards = {
+  // cards만을 독립적으로 구독하게 만들지는 않을 것이다.
+  // 그러면 subscribe 메소드를 추가하면 안된다.
+  // subscribe 메소드가 없으면 custom store라고 부르면 안된다.
+  // 단지 밖으로 나가는 객체 데이터이다.
+  add(payload) {
+    const { listId } = payload;
+    const { title } = payload;
+    _lists.update($lists => {
+      const foundList = _find($lists, { id: listId });
+      console.log(listId);
+      console.log(foundList);
+      foundList.cards.push({
+        id: crypto(),
+        title,
+      });
+      return $lists;
+    });
+  },
+};

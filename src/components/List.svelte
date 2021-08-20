@@ -10,14 +10,14 @@
   <div class="list__inner">
     <div class="list__heading">
       <ListTitle {list} />
-      <p>{list.cards.length}cards</p>
+      <p>{list.cards.length} cards</p>
     </div>
     <div class="list__cards">
       {#each list.cards as card (card.id)}
         <Card {card} />
       {/each}
     </div>
-    <CreateCard />
+    <CreateCard listId={list.id} />
   </div>
 </div>
 
