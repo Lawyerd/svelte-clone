@@ -78,4 +78,7 @@
   :global(.list__inner:hover .edit-btn-for-list) {
     display: block !important;
   }
+  .actions {
+    margin-bottom: 10px;
+  }
 </style>
