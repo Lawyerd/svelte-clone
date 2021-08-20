@@ -16,9 +16,6 @@
       {#each list.cards as card (card.id)}
         <Card {card} />
       {/each}
-      <Card />
-      <Card />
-      <Card />
     </div>
     <CreateCard />
   </div>
