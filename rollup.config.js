@@ -1,6 +1,7 @@
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import alias from "@rollup/plugin-alias";
+import strip from "@rollup/plugin-strip";
 
 import svelte from "rollup-plugin-svelte";
 import livereload from "rollup-plugin-livereload";
@@ -95,9 +96,21 @@ export default {
     // Watch the `public` directory and refresh the
     // browser on changes when not in production
     !production && livereload("public"),
-
     // If we're building for production (npm run build
     // instead of npm run dev), minify
+
+    production &&
+      strip({
+        include: "**/*.(svelte|js)",
+        functions: ["console.*", "assert.*"],
+      }),
+    // 제품 모드인 경우에만 사용한다.
+    // 우리 모듈에서 불필요한 것들을 벗어 던진다.
+    // include 뒤에는 경로 명시
+    // **는 우리 프로젝트의 모든 경로, 와일드카드라고도 함
+    // 우리 프로젝트의 모든 파일 중 확장자가 svelte혹은 js인 경우
+    // 필없는 것들을 다 지운다.
+    // 우리 프로젝트에서 console.로 시작하는 모든 것들을 지운다.
     production && terser(),
   ],
   watch: {

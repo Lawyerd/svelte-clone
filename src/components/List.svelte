@@ -54,6 +54,7 @@
 
 <style lang="scss">
   .list {
+    word-break: break-all;
     width: 290px;
     height: 100%;
     box-sizing: border-box;
