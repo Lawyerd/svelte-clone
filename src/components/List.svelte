@@ -6,8 +6,15 @@
   import Sortable from "sortablejs";
   import { cards } from "~/store/list";
   export let list;
+  export let sortableLists;
   let sortableCards;
   let cardsEl;
+  function disableSortable(event) {
+    // console.log(event);
+    // console.log(event.detail);
+    sortableCards.option("disabled", event.detail);
+    sortableLists.option("disabled", event.detail);
+  }
 
   onMount(() => {
     sortableCards = new Sortable(cardsEl, {
@@ -33,15 +40,15 @@
 <div class="list">
   <div class="list__inner">
     <div class="list__heading">
-      <ListTitle {list} />
+      <ListTitle {list} on:editMode={disableSortable} />
       <p>{list.cards.length} cards</p>
     </div>
     <div class="list__cards" bind:this={cardsEl} data-list-id={list.id}>
       {#each list.cards as card (card.id)}
-        <Card {card} listId={list.id} />
+        <Card {card} listId={list.id} on:editMode={disableSortable} />
       {/each}
     </div>
-    <CreateCard listId={list.id} />
+    <CreateCard listId={list.id} on:editMode={disableSortable} />
   </div>
 </div>
 
