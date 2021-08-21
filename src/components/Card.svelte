@@ -70,8 +70,29 @@
     // font-weight: 400;
     // line-height: 2px;
     margin-bottom: 8px;
+
     &:last-child {
       margin-bottom: 1px;
+    }
+
+    :global(&.sortable-ghost) {
+      position: relative;
+      opacity: 0.1;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: black;
+        border-radius: 4px;
+      }
+    }
+
+    :global(&.sortable-chosen) {
+      cursor: move;
     }
 
     .title {
