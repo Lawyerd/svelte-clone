@@ -85,8 +85,8 @@ export const cards = {
   // subscribe 메소드가 없으면 custom store라고 부르면 안된다.
   // 단지 밖으로 나가는 객체 데이터이다.
   add(payload) {
-    const { listId } = payload;
     const { title } = payload;
+    const { listId } = payload;
     _lists.update($lists => {
       const foundList = _find($lists, { id: listId });
       console.log(listId);
@@ -95,6 +95,35 @@ export const cards = {
         id: crypto(),
         title,
       });
+      return $lists;
+    });
+  },
+
+  edit(payload) {
+    const { title } = payload;
+    const { listId } = payload;
+    const { cardId } = payload;
+    _lists.update($lists => {
+      const foundList = _find($lists, {
+        id: listId,
+      });
+      const foundCard = _find(foundList.cards, {
+        id: cardId,
+      });
+      foundCard.title = title;
+      return $lists;
+    });
+  },
+
+  remove(payload) {
+    const { listId } = payload;
+    const { cardId } = payload;
+    _lists.update($lists => {
+      const foundList = _find($lists, {
+        id: listId,
+      });
+
+      _remove(foundList.cards, { id: cardId });
       return $lists;
     });
   },
