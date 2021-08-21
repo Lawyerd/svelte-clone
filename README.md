@@ -17,4 +17,4 @@ JavaScript의 ESM(ES Modules)를 활용하여 동일 파일을 다시 빌드하�
 - CommonJS : const xx = require('module') // nodeJS에서 활용한다. 
 
 ### 출처 
-(Heropy Tech)(https://heropy.blog/2020/10/31/snowpack/)
+[Heropy Tech](https://heropy.blog/2020/10/31/snowpack/)
