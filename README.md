@@ -3,7 +3,7 @@
 ## Netlify
 [링크](https://lawyerd-trello.netlify.app/)
 
-## 🌨Snowpack🌨
+## 🌨 Snowpack
 ### 번들러
 기존에는 Rollup을 사용하여 개발을 진행하였다. 그에 따라 template도 webpack svelte template이 아닌 rollup svelte template를 설치하였다. `npx degit sveltejs/template` 
 Rollup이나 Webpack, Parcel 같은 빌드 도구들을 '번들러'라고 부른다. 이러한 녀석들은 모듈들을 결합하여 하나의 번들을 만들도록 동작한다. public 폴더에 들어있는 bundle.js, bundle.css 같은 파일들이 대표적인 결과물이다. 
